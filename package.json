@@ -3,23 +3,50 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "unocss": "unocss \"pages/**/*.{ts,tsx}\" \"components/**/*.{ts,tsx}\" \"design-system/**/*.{ts,tsx}\" \"lib/**/*.{ts,tsx}\" --out-file public/uno.css",
+    "unocss-watch": "unocss \"pages/**/*.{ts,tsx}\" \"components/**/*.{ts,tsx}\" \"design-system/**/*.{ts,tsx}\" \"lib/**/*.{ts,tsx}\" -w  --out-file public/uno.css",
+    "unocss-nodemon": "nodemon",
+    "dev": "concurrently \"npm run unocss-nodemon\" \"next dev --turbo\"",
+    "build": "npm run unocss && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "concurrently \"npm run unocss-nodemon\" \"storybook dev -p 6006 --config-dir design-system/.storybook\"",
+    "build-storybook": "npm run unocss && storybook build --config-dir design-system/.storybook"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.2.1"
+    "next": "15.2.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
+    "@chromatic-com/storybook": "3.2.5",
+    "@eslint/eslintrc": "3",
+    "@storybook/addon-a11y": "8.6.3",
+    "@storybook/addon-docs": "8.6.3",
+    "@storybook/addon-essentials": "8.6.3",
+    "@storybook/addon-onboarding": "8.6.3",
+    "@storybook/nextjs": "8.6.3",
+    "@storybook/react": "8.6.3",
+    "@types/node": "20",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "@unocss/cli": "66.0.0",
+    "@unocss/preset-attributify": "66.0.0",
+    "@unocss/preset-uno": "66.0.0",
+    "concurrently": "9.1.2",
+    "eslint": "9",
     "eslint-config-next": "15.2.1",
-    "@eslint/eslintrc": "^3"
+    "eslint-plugin-storybook": "0.11.4",
+    "nodemon": "3.1.9",
+    "playwright": "1.50.1",
+    "storybook": "8.6.3",
+    "typescript": "5",
+    "unocss": "66.1.0-beta.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended",
+      "plugin:storybook/recommended"
+    ]
   }
 }

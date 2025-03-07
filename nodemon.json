@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "watch": ["uno.config.ts", "lib/**/*.ts"],
+  "ext": "ts",
+  "exec": "npm run unocss-watch",
+  "ignore": []
+}
