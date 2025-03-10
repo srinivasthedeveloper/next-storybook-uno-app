@@ -17,7 +17,7 @@ const config: StorybookConfig = {
     name: "@storybook/nextjs",
     options: {},
   },
-  staticDirs: ["../public"],
+  staticDirs: ["../../public"],
   webpackFinal: async (config) => {
     config?.resolve?.modules?.push(path.resolve(__dirname, "../../"));
     return config;

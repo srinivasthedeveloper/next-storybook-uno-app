@@ -5,8 +5,9 @@ export const typography = {
   fontSize: {
     xs: "0.5rem",
     sm: "0.75rem",
-    md: "1rem",
-    lg: "1.5rem",
-    xl: "2rem",
+    md: "0.875rem",
+    lg: "1rem",
+    xl: "1.5rem",
+    xxl: "2rem",
   },
 } as const;

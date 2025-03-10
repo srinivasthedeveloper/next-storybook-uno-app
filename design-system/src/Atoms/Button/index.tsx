@@ -1,17 +1,24 @@
 // components/Button.tsx
 import React from "react";
+import loadingIcon from "../../../../public/assets/loading.svg";
+import loadingRedIcon from "../../../../public/assets/loadingRed.svg";
+import Image from "next/image";
 
 interface ButtonProps {
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "ternary";
   onClick?: () => void;
   disabled?: boolean;
+  size?: "sm" | "md" | "lg";
+  loading?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   children,
   variant = "primary",
   disabled = false,
+  size = "md",
+  loading = false,
   onClick,
 }) => {
   const variantClass = (() => {
@@ -26,6 +33,18 @@ export const Button: React.FC<ButtonProps> = ({
         return "btn-primary";
     }
   })();
+  const btnSize = (() => {
+    switch (size) {
+      case "sm":
+        return "btn-sm";
+      case "md":
+        return "btn-md";
+      case "lg":
+        return "btn-lg";
+      default:
+        return "btn-md";
+    }
+  })();
   return (
     <button
       onClick={onClick}
@@ -37,9 +56,17 @@ export const Button: React.FC<ButtonProps> = ({
       //   // we can use a ternary operation here or a function or we can specify these classNames in safeList in uno.config
       //   ""
       // }`}
-      className={`btn ${variantClass} ${disabled ? "disabled" : ""}`}
+      className={`btn ${variantClass} ${btnSize} ${disabled ? "disabled" : ""}`}
     >
-      {children}
+      {loading ? (
+        <Image
+          src={variant === "primary" ? loadingIcon : loadingRedIcon}
+          alt=""
+          className="w-25px h-25px animate-spin animate-count-infinite animate-duration-1s"
+        />
+      ) : (
+        children
+      )}
     </button>
   );
 };
